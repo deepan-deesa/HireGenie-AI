@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String
+  password  String
+  role      String   @default("Recruiter")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model JobOpening {
+  id              String   @id @default(uuid())
+  title           String
+  department      String
+  location        String
+  type            String   // 'Full-time' | 'Part-time' | 'Contract' | 'Remote'
+  status          String   // 'Active' | 'Draft' | 'Closed'
+  applicantsCount Int      @default(0)
+  postedDate      String   // ISO date string e.g. '2026-07-10'
+  createdAt       DateTime @default(now())
+}
+
+model Candidate {
+  id            String   @id @default(uuid())
+  name          String
+  email         String   @unique
+  phone         String
+  role          String
+  matchScore    Int      @default(0)
+  experience    String
+  skills        String   // JSON string of string[] e.g. '["React", "TypeScript"]'
+  status        String   // 'Screening' | 'Interview' | 'Offer' | 'Rejected'
+  avatarUrl     String?
+  resumeUrl     String?
+  appliedDate   String   // ISO date string
+  aiSummary     String
+  keyHighlights String   // JSON string of string[]
+  createdAt     DateTime @default(now())
+}
+
+model CandidateEmail {
+  id                String   @id @default(uuid())
+  candidateId       String
+  candidateName     String
+  subject           String
+  snippet           String
+  body              String
+  timestamp         String   // Relative time e.g. '10:30 AM' or 'Yesterday'
+  isRead            Boolean  @default(false)
+  direction         String   // 'inbound' | 'outbound'
+  aiDraftSuggestion String?
+  createdAt         DateTime @default(now())
+}

@@ -1,0 +1,6 @@
+{
+  "name": "HireGenie AI",
+  "description": "HireGenie AI is a premium, AI-powered recruitment SaaS platform designed to streamline talent acquisition, resume parsing, candidate evaluation, smart Gmail integration, and automated communications.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
